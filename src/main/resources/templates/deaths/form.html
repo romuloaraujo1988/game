@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4 text-danger">Registrar Óbito - <span th:text="${animal.earTag}">Brinco</span></h2>
+
+        <div class="alert alert-warning">
+            Atenção: Ao registrar o óbito, o animal terá seu status alterado para <strong>DECEASED</strong> e não poderá mais ser movimentado ou vendido.
+        </div>
+
+        <form th:action="@{/deaths/save}" th:object="${death}" method="post">
+            <input type="hidden" name="animal" th:value="${animal.id}" />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="date" class="form-label">Data do Óbito</label>
+                    <input type="date" class="form-control" id="date" th:field="*{date}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cause" class="form-label">Causa da Morte</label>
+                    <input type="text" class="form-control" id="cause" th:field="*{cause}" required placeholder="Ex: Doença, Acidente, Desconhecida">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="observations" class="form-label">Observações Adicionais</label>
+                <textarea class="form-control" id="observations" th:field="*{observations}" rows="3"></textarea>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-danger">Confirmar Óbito</button>
+                <a th:href="@{/animals}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

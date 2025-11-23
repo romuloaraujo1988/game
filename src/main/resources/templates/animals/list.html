@@ -50,7 +50,13 @@
                             Mov.
                         </a>
                         <a th:href="@{/animals/edit/{id}(id=${animal.id})}" class="btn btn-sm btn-warning">Editar</a>
-                        <a th:href="@{/animals/delete/{id}(id=${animal.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
+                        <a th:if="${animal.status.name() == 'ACTIVE'}"
+                           th:href="@{/deaths/new/{id}(id=${animal.id})}"
+                           class="btn btn-sm btn-outline-danger" title="Registrar Óbito"
+                           onclick="return confirm('Deseja iniciar o registro de óbito?');">
+                            †
+                        </a>
+                        <a th:href="@{/animals/delete/{id}(id=${animal.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir o registro?');">Excluir</a>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(animals)}">

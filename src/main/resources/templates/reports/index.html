@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4">Central de Relatórios</h2>
+        <p class="lead text-muted">Selecione um relatório para visualizar ou imprimir.</p>
+
+        <div class="row g-4 mt-2">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Inventário de Rebanho</h5>
+                        <p class="card-text">Listagem completa de animais ativos, organizados por pasto.</p>
+                        <a th:href="@{/reports/inventory}" class="btn btn-outline-primary" target="_blank">Gerar Relatório</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 opacity-50">
+                    <div class="card-body">
+                        <h5 class="card-title">Vendas por Período</h5>
+                        <p class="card-text">Detalhamento financeiro das vendas. (Em Breve)</p>
+                        <button class="btn btn-outline-secondary" disabled>Em Breve</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 opacity-50">
+                    <div class="card-body">
+                        <h5 class="card-title">Ficha do Animal</h5>
+                        <p class="card-text">Dossiê completo individual. (Em Breve)</p>
+                        <button class="btn btn-outline-secondary" disabled>Em Breve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

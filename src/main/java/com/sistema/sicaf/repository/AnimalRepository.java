@@ -1,7 +1,6 @@
 package com.sistema.sicaf.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.sistema.sicaf.model.Animal;
 import com.sistema.sicaf.model.AnimalStatus;
@@ -18,4 +17,6 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     long countByStatusAndGender(AnimalStatus status, Gender gender);
 
     List<Animal> findTop5ByOrderByIdDesc();
+
+    List<Animal> findByStatusOrderByPastureNameAsc(AnimalStatus status);
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4">Registrar Reprodução - <span th:text="${animal.earTag}">Brinco</span></h2>
+
+        <form th:action="@{/reproductions/save}" th:object="${reproduction}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" name="dam" th:value="${animal.id}" />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="date" class="form-label">Data do Evento</label>
+                    <input type="date" class="form-control" id="date" th:field="*{date}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="type" class="form-label">Tipo de Evento</label>
+                    <select class="form-select" id="type" th:field="*{type}">
+                        <option value="Cobertura">Cobertura</option>
+                        <option value="Inseminação">Inseminação</option>
+                        <option value="Diagnóstico Gestação">Diagnóstico Gestação</option>
+                        <option value="Parto">Parto</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="observations" class="form-label">Observações</label>
+                <textarea class="form-control" id="observations" th:field="*{observations}" rows="3"></textarea>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a th:href="@{/reproductions/history/{id}(id=${animal.id})}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

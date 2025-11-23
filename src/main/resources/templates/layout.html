@@ -30,6 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/vaccines}">Vacinas (Catálogo)</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/sales}">Vendas</a>
+                </li>
             </ul>
             <span class="navbar-text me-3" sec:authorize="isAuthenticated()">
                 Olá, <span sec:authentication="name">User</span>

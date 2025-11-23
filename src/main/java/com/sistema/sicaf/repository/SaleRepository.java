@@ -16,4 +16,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     BigDecimal sumTotalAmountByDateBetween(LocalDate startDate, LocalDate endDate);
 
     List<Sale> findByStatusOrderByDueDateAsc(PaymentStatus status);
+
+    List<Sale> findByDateBetween(LocalDate startDate, LocalDate endDate);
 }

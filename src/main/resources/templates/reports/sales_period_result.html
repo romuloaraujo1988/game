@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; font-family: sans-serif; }
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; }
+        }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print mb-4">
+        <button onclick="window.print()" class="btn btn-primary">Imprimir</button>
+        <button onclick="window.close()" class="btn btn-secondary">Fechar</button>
+    </div>
+
+    <div class="header">
+        <h1>SICAF - Relatório de Vendas</h1>
+        <p>
+            Período: <strong th:text="${#temporals.format(startDate, 'dd/MM/yyyy')}">Inv</strong> a
+            <strong th:text="${#temporals.format(endDate, 'dd/MM/yyyy')}">Fim</strong>
+        </p>
+        <p>Gerado em: <span th:text="${#temporals.format(generationDate, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+    </div>
+
+    <table class="table table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Data</th>
+                <th>Comprador</th>
+                <th>Qtd. Animais</th>
+                <th>Status Pagto</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="s : ${sales}">
+                <td th:text="${s.date}">Data</td>
+                <td th:text="${s.buyerName}">Comprador</td>
+                <td th:text="${#lists.size(s.items)}">Qtd</td>
+                <td th:text="${s.status.displayName}">Status</td>
+                <td th:text="'R$ ' + ${s.totalAmount}">Valor</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(sales)}">
+                <td colspan="5" class="text-center">Nenhuma venda encontrada no período.</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="4" class="text-end"><strong>Total Geral:</strong></td>
+                <td th:text="'R$ ' + ${totalRevenue}">Total</td>
+            </tr>
+        </tfoot>
+    </table>
+
+</body>
+</html>

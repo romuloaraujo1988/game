@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4">Buscar Ficha do Animal</h2>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <div class="card card-body" style="max-width: 500px; margin: 0 auto;">
+            <form th:action="@{/reports/animal-dossier}" method="post">
+                <div class="mb-3">
+                    <label for="earTag" class="form-label">Informe o Número do Brinco</label>
+                    <input type="text" class="form-control form-control-lg" id="earTag" name="earTag" required placeholder="Ex: 1234">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Gerar Dossiê</button>
+            </form>
+            <div class="mt-3 text-center">
+                <a th:href="@{/reports}">Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

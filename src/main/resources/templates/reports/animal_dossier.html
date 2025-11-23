@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Ficha Animal - ' + ${dossier.animal.earTag}">Ficha Animal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; font-family: sans-serif; }
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; }
+        }
+        .header { border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px; }
+        .section-title { background: #eee; padding: 5px 10px; margin-top: 20px; margin-bottom: 10px; font-weight: bold; border-left: 5px solid #0d6efd; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print mb-3">
+        <button onclick="window.print()" class="btn btn-primary">Imprimir</button>
+        <button onclick="window.close()" class="btn btn-secondary">Fechar</button>
+    </div>
+
+    <div class="header">
+        <h1>SICAF - Ficha Individual do Animal</h1>
+        <p>Gerado em: <span th:text="${#temporals.format(generationDate, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="row mb-4">
+        <div class="col-6">
+            <h2 class="display-4 text-primary" th:text="${dossier.animal.earTag}">1234</h2>
+            <p><strong>Brinco/Identificação</strong></p>
+        </div>
+        <div class="col-6">
+            <table class="table table-sm table-borderless">
+                <tr><th>Raça:</th> <td th:text="${dossier.animal.breed}">Raça</td></tr>
+                <tr><th>Sexo:</th> <td th:text="${dossier.animal.gender}">Sexo</td></tr>
+                <tr><th>Nascimento:</th> <td th:text="${dossier.animal.birthDate}">Data</td></tr>
+                <tr><th>Status:</th> <td th:text="${dossier.animal.status}">Status</td></tr>
+                <tr><th>Pasto Atual:</th> <td th:text="${dossier.animal.pasture != null} ? ${dossier.animal.pasture.name} : 'Sem Pasto'">Pasto</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Weighing History -->
+    <div class="section-title">Histórico de Peso</div>
+    <table class="table table-striped table-sm">
+        <thead><tr><th>Data</th><th>Peso (Kg)</th></tr></thead>
+        <tbody>
+            <tr th:each="w : ${dossier.weighings}">
+                <td th:text="${w.date}">Data</td>
+                <td th:text="${w.weightInKg}">0.0</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(dossier.weighings)}"><td colspan="2">Sem registros.</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Vaccination History -->
+    <div class="section-title">Histórico Sanitário (Vacinas)</div>
+    <table class="table table-striped table-sm">
+        <thead><tr><th>Data</th><th>Vacina</th><th>Lote</th></tr></thead>
+        <tbody>
+            <tr th:each="v : ${dossier.vaccinations}">
+                <td th:text="${v.date}">Data</td>
+                <td th:text="${v.vaccine.name}">Vacina</td>
+                <td th:text="${v.batchNumber}">Lote</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(dossier.vaccinations)}"><td colspan="3">Sem registros.</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Reproduction History (Females Only) -->
+    <div th:if="${dossier.animal.gender.name() == 'FEMALE'}">
+        <div class="section-title">Histórico Reprodutivo</div>
+        <table class="table table-striped table-sm">
+            <thead><tr><th>Data</th><th>Tipo</th><th>Obs</th></tr></thead>
+            <tbody>
+                <tr th:each="r : ${dossier.reproductions}">
+                    <td th:text="${r.date}">Data</td>
+                    <td th:text="${r.type}">Tipo</td>
+                    <td th:text="${r.observations}">Obs</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(dossier.reproductions)}"><td colspan="3">Sem registros.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Movement History -->
+    <div class="section-title">Movimentações de Pasto</div>
+    <table class="table table-striped table-sm">
+        <thead><tr><th>Data</th><th>Origem</th><th>Destino</th><th>Motivo</th></tr></thead>
+        <tbody>
+            <tr th:each="m : ${dossier.movements}">
+                <td th:text="${m.date}">Data</td>
+                <td th:text="${m.originPasture != null} ? ${m.originPasture.name} : '-'">Origem</td>
+                <td th:text="${m.destinationPasture.name}">Destino</td>
+                <td th:text="${m.reason}">Motivo</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(dossier.movements)}"><td colspan="4">Sem registros.</td></tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

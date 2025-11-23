@@ -21,6 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" th:href="@{/}">Home</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link text-warning" th:href="@{/users}">Usuários</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/pastures}">Pastos</a>
                 </li>
@@ -56,6 +59,8 @@
                         <li><a class="dropdown-item" th:href="@{/feed/inputs}">Insumos (Estoque)</a></li>
                         <li><a class="dropdown-item" th:href="@{/feed/formulas}">Fórmulas</a></li>
                         <li><a class="dropdown-item" th:href="@{/feed/production}">Produção (Bater Ração)</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/feed/distribution}">Fornecimento (Trato)</a></li>
                     </ul>
                 </li>
             </ul>

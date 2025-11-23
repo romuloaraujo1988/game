@@ -15,7 +15,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate date;
+    private LocalDate date; // Data de competência/registro
 
     private String description;
 
@@ -23,4 +23,12 @@ public class Expense {
 
     @Enumerated(EnumType.STRING)
     private ExpenseCategory category;
+
+    // Financial Control
+    private LocalDate dueDate; // Vencimento
+
+    private LocalDate paymentDate; // Data do Pagamento Realizado
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status = PaymentStatus.PENDING;
 }

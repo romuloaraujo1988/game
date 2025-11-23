@@ -8,11 +8,15 @@
             <input type="hidden" th:field="*{id}" />
 
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="date" class="form-label">Data</label>
+                <div class="col-md-4 mb-3">
+                    <label for="date" class="form-label">Data de Registro</label>
                     <input type="date" class="form-control" id="date" th:field="*{date}" required>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
+                    <label for="dueDate" class="form-label">Data de Vencimento</label>
+                    <input type="date" class="form-control" id="dueDate" th:field="*{dueDate}">
+                </div>
+                <div class="col-md-4 mb-3">
                     <label for="category" class="form-label">Categoria</label>
                     <select class="form-select" id="category" th:field="*{category}" required>
                         <option value="">Selecione...</option>

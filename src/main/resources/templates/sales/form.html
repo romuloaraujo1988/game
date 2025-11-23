@@ -8,11 +8,15 @@
 
         <form th:action="@{/sales/save}" th:object="${sale}" method="post">
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <label for="date" class="form-label">Data da Venda</label>
                     <input type="date" class="form-control" id="date" th:field="*{date}" required>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
+                    <label for="dueDate" class="form-label">Data de Vencimento</label>
+                    <input type="date" class="form-control" id="dueDate" th:field="*{dueDate}">
+                </div>
+                <div class="col-md-4 mb-3">
                     <label for="buyerName" class="form-label">Comprador</label>
                     <input type="text" class="form-control" id="buyerName" th:field="*{buyerName}" required>
                 </div>

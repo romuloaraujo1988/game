@@ -25,4 +25,12 @@ public class Sale {
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
+
+    // Financial Control
+    private LocalDate dueDate; // Vencimento
+
+    private LocalDate receiptDate; // Data do Recebimento Realizado
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status = PaymentStatus.PENDING;
 }

@@ -38,6 +38,9 @@
                         <a th:href="@{/weighings/history/{id}(id=${animal.id})}" class="btn btn-sm btn-info text-white" title="Histórico de Pesagens">
                             Peso
                         </a>
+                        <a th:href="@{/vaccinations/history/{id}(id=${animal.id})}" class="btn btn-sm btn-success text-white" title="Carteira de Vacinação">
+                            Vacinas
+                        </a>
                         <a th:href="@{/animals/edit/{id}(id=${animal.id})}" class="btn btn-sm btn-warning">Editar</a>
                         <a th:href="@{/animals/delete/{id}(id=${animal.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
                     </td>

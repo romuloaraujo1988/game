@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4" th:text="${vaccine.id == null} ? 'Nova Vacina' : 'Editar Vacina'">Formulário de Vacina</h2>
+
+        <form th:action="@{/vaccines/save}" th:object="${vaccine}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome da Vacina</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="manufacturer" class="form-label">Fabricante</label>
+                <input type="text" class="form-control" id="manufacturer" th:field="*{manufacturer}">
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a th:href="@{/vaccines}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

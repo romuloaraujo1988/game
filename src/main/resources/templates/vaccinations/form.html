@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4">Registrar Vacinação - <span th:text="${animal.earTag}">Brinco</span></h2>
+
+        <form th:action="@{/vaccinations/save}" th:object="${vaccination}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" name="animal" th:value="${animal.id}" />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="date" class="form-label">Data da Aplicação</label>
+                    <input type="date" class="form-control" id="date" th:field="*{date}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="vaccine" class="form-label">Vacina</label>
+                    <select class="form-select" id="vaccine" th:field="*{vaccine}" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="v : ${availableVaccines}"
+                                th:value="${v.id}" th:text="${v.name} + ' (' + ${v.manufacturer} + ')'"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="batchNumber" class="form-label">Número do Lote</label>
+                <input type="text" class="form-control" id="batchNumber" th:field="*{batchNumber}">
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a th:href="@{/vaccinations/history/{id}(id=${animal.id})}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

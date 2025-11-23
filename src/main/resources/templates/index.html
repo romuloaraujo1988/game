@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h1>Dashboard</h1>
+        <p class="lead">Bem-vindo ao Sistema de Gerenciamento de Fazenda (SICAF).</p>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Animais</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gestão de Rebanho</h5>
+                        <p class="card-text">Cadastre e visualize o rebanho.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Pastos</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Controle de Pastagens</h5>
+                        <p class="card-text">Gerencie a lotação dos pastos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Sanitário</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Vacinas e Manejo</h5>
+                        <p class="card-text">Controle de vacinação e pesagem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -21,10 +21,13 @@
             </div>
             <div class="col-md-3">
                 <div class="card text-white bg-success h-100">
-                    <div class="card-header">Vendas (Mês Atual)</div>
+                    <div class="card-header">Lucro (Mês Atual)</div>
                     <div class="card-body">
-                        <h2 class="card-title display-6" th:text="'R$ ' + ${dashboard.monthlySales}">R$ 0.00</h2>
-                        <p class="card-text">Receita bruta mensal</p>
+                        <h2 class="card-title display-6" th:text="'R$ ' + ${dashboard.monthlyProfit}">R$ 0.00</h2>
+                        <p class="card-text">
+                             <small th:text="'Rec: R$ ' + ${dashboard.monthlySales}"></small> |
+                             <small th:text="'Desp: R$ ' + ${dashboard.monthlyExpenses}"></small>
+                        </p>
                     </div>
                 </div>
             </div>

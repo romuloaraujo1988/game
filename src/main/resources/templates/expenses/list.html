@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Gestão de Despesas</h2>
+            <a th:href="@{/expenses/new}" class="btn btn-primary">Nova Despesa</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="e : ${expenses}">
+                    <td th:text="${e.date}">Data</td>
+                    <td th:text="${e.description}">Desc</td>
+                    <td th:text="${e.category.displayName}">Cat</td>
+                    <td th:text="'R$ ' + ${e.amount}" class="text-danger">Valor</td>
+                    <td>
+                        <a th:href="@{/expenses/edit/{id}(id=${e.id})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/expenses/delete/{id}(id=${e.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Excluir despesa?');">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(expenses)}">
+                    <td colspan="5" class="text-center">Nenhuma despesa registrada.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

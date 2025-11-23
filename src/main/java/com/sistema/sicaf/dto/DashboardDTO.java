@@ -11,6 +11,8 @@ public class DashboardDTO {
     private long activeMales;
     private long activeFemales;
     private BigDecimal monthlySales;
-    private double occupancyRate; // percentage
+    private BigDecimal monthlyExpenses; // Added
+    private BigDecimal monthlyProfit;   // Added
+    private double occupancyRate;
     private List<Animal> recentAnimals;
 }

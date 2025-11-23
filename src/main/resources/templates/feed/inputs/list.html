@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Estoque de Insumos (Fábrica)</h2>
+            <a th:href="@{/feed/inputs/new}" class="btn btn-primary">Novo Insumo</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Estoque (Kg)</th>
+                    <th>Custo Unit. (R$/Kg)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${inputs}">
+                    <td th:text="${i.name}">Nome</td>
+                    <td th:text="${i.stockQuantityKg}">0.0</td>
+                    <td th:text="'R$ ' + ${i.unitCostPerKg}">0.00</td>
+                    <td>
+                        <a th:href="@{/feed/inputs/edit/{id}(id=${i.id})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/feed/inputs/delete/{id}(id=${i.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Excluir insumo?');">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(inputs)}">
+                    <td colspan="4" class="text-center">Nenhum insumo cadastrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

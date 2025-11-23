@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4" th:text="${formula.id == null} ? 'Nova Fórmula' : 'Editar Fórmula'">Formulário</h2>
+
+        <form th:action="@{/feed/formulas/save}" th:object="${formula}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome da Fórmula</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+            </div>
+
+            <h4 class="mt-4 mb-3">Composição (Insumos)</h4>
+            <div class="alert alert-info">Adicione os ingredientes e a proporção (%). A soma deve ser idealmente 100%.</div>
+
+            <table class="table table-bordered" id="itemsTable">
+                <thead>
+                    <tr>
+                        <th>Insumo</th>
+                        <th>Porcentagem (%)</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="itemsBody">
+                    <!-- Existing Items -->
+                    <tr th:each="item, stat : *{items}">
+                        <td>
+                             <select name="inputIds" class="form-select">
+                                <option th:each="i : ${inputs}"
+                                        th:value="${i.id}" th:text="${i.name}"
+                                        th:selected="${i.id == item.input.id}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" name="percentages" class="form-control" th:value="${item.percentage}">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Remover</button>
+                        </td>
+                    </tr>
+                    <!-- Empty row for new entry if list is empty (simplified approach) -->
+                    <tr th:if="${#lists.isEmpty(formula.items)}">
+                         <td>
+                             <select name="inputIds" class="form-select">
+                                <option value="">Selecione...</option>
+                                <option th:each="i : ${inputs}" th:value="${i.id}" th:text="${i.name}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" name="percentages" class="form-control">
+                        </td>
+                         <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-secondary mb-3" onclick="addRow()">+ Adicionar Insumo</button>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Salvar Fórmula</button>
+                <a th:href="@{/feed/formulas}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+
+        <!-- Hidden Template for JS -->
+        <div id="rowTemplate" style="display:none">
+            <table>
+            <tr>
+                 <td>
+                     <select name="inputIds" class="form-select">
+                        <option value="">Selecione...</option>
+                        <option th:each="i : ${inputs}" th:value="${i.id}" th:text="${i.name}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" step="0.01" name="percentages" class="form-control">
+                </td>
+                 <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Remover</button>
+                </td>
+            </tr>
+            </table>
+        </div>
+
+        <script>
+            function addRow() {
+                const template = document.getElementById('rowTemplate').getElementsByTagName('tr')[0];
+                const newRow = template.cloneNode(true);
+                document.getElementById('itemsBody').appendChild(newRow);
+            }
+        </script>
+    </div>
+</body>
+</html>

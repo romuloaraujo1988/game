@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Histórico de Produção (Bater Ração)</h2>
+            <a th:href="@{/feed/production/new}" class="btn btn-primary">Nova Produção</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Fórmula</th>
+                    <th>Quantidade Total (Kg)</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${productions}">
+                    <td th:text="${p.date}">Data</td>
+                    <td th:text="${p.formula.name}">Fórmula</td>
+                    <td th:text="${p.totalQuantityKg}">0.0</td>
+                    <td th:text="${p.observations}">Obs</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(productions)}">
+                    <td colspan="4" class="text-center">Nenhuma produção registrada.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

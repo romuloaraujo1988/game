@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Gestão de Animais</h2>
+            <a th:href="@{/animals/new}" class="btn btn-primary">Novo Animal</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Brinco</th>
+                    <th>Raça</th>
+                    <th>Sexo</th>
+                    <th>Nascimento</th>
+                    <th>Pasto</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="animal : ${animals}">
+                    <td th:text="${animal.earTag}">Brinco</td>
+                    <td th:text="${animal.breed}">Raça</td>
+                    <td th:text="${animal.gender}">Sexo</td>
+                    <td th:text="${animal.birthDate}">Data</td>
+                    <td th:text="${animal.pasture != null} ? ${animal.pasture.name} : 'Sem Pasto'">Pasto</td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${animal.status.name() == 'ACTIVE'} ? 'bg-success' : 'bg-secondary'"
+                              th:text="${animal.status}">Status</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/weighings/history/{id}(id=${animal.id})}" class="btn btn-sm btn-info text-white" title="Histórico de Pesagens">
+                            Peso
+                        </a>
+                        <a th:href="@{/animals/edit/{id}(id=${animal.id})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/animals/delete/{id}(id=${animal.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(animals)}">
+                    <td colspan="7" class="text-center">Nenhum animal cadastrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

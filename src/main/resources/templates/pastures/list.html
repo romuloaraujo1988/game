@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Gestão de Pastos</h2>
+            <a th:href="@{/pastures/new}" class="btn btn-primary">Novo Pasto</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Área (ha)</th>
+                    <th>Capacidade (Animais)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pasture : ${pastures}">
+                    <td th:text="${pasture.name}">Nome</td>
+                    <td th:text="${pasture.areaInHectares}">0.0</td>
+                    <td th:text="${pasture.capacity}">0</td>
+                    <td>
+                        <a th:href="@{/pastures/edit/{id}(id=${pasture.id})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/pastures/delete/{id}(id=${pasture.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(pastures)}">
+                    <td colspan="4" class="text-center">Nenhum pasto cadastrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

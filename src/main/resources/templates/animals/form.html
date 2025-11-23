@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::div})}">
+<body>
+    <div>
+        <h2 class="mb-4" th:text="${animal.id == null} ? 'Novo Animal' : 'Editar Animal'">Formulário de Animal</h2>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/animals/save}" th:object="${animal}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="earTag" class="form-label">Brinco (Identificação)</label>
+                    <input type="text" class="form-control" id="earTag" th:field="*{earTag}" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('earTag')}" th:errors="*{earTag}">Erro</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="breed" class="form-label">Raça</label>
+                    <input type="text" class="form-control" id="breed" th:field="*{breed}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label">Sexo</label>
+                    <select class="form-select" id="gender" th:field="*{gender}">
+                        <option th:each="g : ${T(com.sistema.sicaf.model.Gender).values()}"
+                                th:value="${g}" th:text="${g}"></option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="birthDate" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="birthDate" th:field="*{birthDate}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="pasture" class="form-label">Pasto</label>
+                    <select class="form-select" id="pasture" th:field="*{pasture}">
+                        <option value="">Selecione um pasto...</option>
+                        <option th:each="p : ${pastures}"
+                                th:value="${p.id}" th:text="${p.name}"></option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" th:field="*{status}">
+                        <option th:each="s : ${T(com.sistema.sicaf.model.AnimalStatus).values()}"
+                                th:value="${s}" th:text="${s}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a th:href="@{/animals}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -29,6 +29,9 @@ public class DashboardService {
     @Autowired
     private ExpenseRepository expenseRepository;
 
+    @Autowired
+    private AlertService alertService;
+
     public DashboardDTO getDashboardData() {
         DashboardDTO dto = new DashboardDTO();
 
@@ -60,6 +63,9 @@ public class DashboardService {
         } else {
             dto.setOccupancyRate(0.0);
         }
+
+        // Alerts
+        dto.setAlerts(alertService.getAlerts());
 
         return dto;
     }

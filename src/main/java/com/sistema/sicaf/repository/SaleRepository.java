@@ -18,4 +18,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     List<Sale> findByStatusOrderByDueDateAsc(PaymentStatus status);
 
     List<Sale> findByDateBetween(LocalDate startDate, LocalDate endDate);
+
+    // For Alerts
+    List<Sale> findByStatusAndDueDateLessThanEqualOrderByDueDateAsc(PaymentStatus status, LocalDate date);
 }

@@ -16,4 +16,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     BigDecimal sumTotalAmountByDateBetween(LocalDate startDate, LocalDate endDate);
 
     List<Expense> findByStatusOrderByDueDateAsc(PaymentStatus status);
+
+    // For Alerts: Find pending expenses due within a date range (e.g., today up to +7 days, or overdue)
+    List<Expense> findByStatusAndDueDateLessThanEqualOrderByDueDateAsc(PaymentStatus status, LocalDate date);
 }

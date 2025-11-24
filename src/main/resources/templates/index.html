@@ -5,6 +5,35 @@
         <h1 class="mb-4">Dashboard SICAF</h1>
         <p class="lead text-muted mb-4">Visão geral do rebanho e produção.</p>
 
+        <!-- Alerts Section -->
+        <div th:if="${dashboard.alerts.totalAlerts > 0}" class="mb-4">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark fw-bold">
+                    ⚠️ Atenção: <span th:text="${dashboard.alerts.totalAlerts}">0</span> Alerta(s) Requerem Ação
+                </div>
+                <div class="list-group list-group-flush">
+                    <a th:each="exp : ${dashboard.alerts.overdueExpenses}"
+                       th:href="@{/financial/payables}"
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>Conta a Pagar Próxima/Vencida: <strong th:text="${exp.description}">Desc</strong></span>
+                        <span class="badge bg-danger rounded-pill" th:text="${exp.dueDate}">Data</span>
+                    </a>
+                    <a th:each="sale : ${dashboard.alerts.overdueSales}"
+                       th:href="@{/financial/receivables}"
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>Recebimento Próximo/Atrasado: <strong th:text="${sale.buyerName}">Nome</strong></span>
+                        <span class="badge bg-success rounded-pill" th:text="${sale.dueDate}">Data</span>
+                    </a>
+                     <a th:each="input : ${dashboard.alerts.lowStockInputs}"
+                       th:href="@{/feed/inputs}"
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>Estoque Baixo: <strong th:text="${input.name}">Nome</strong></span>
+                        <span class="badge bg-secondary rounded-pill" th:text="${input.stockQuantityKg} + ' Kg'">Kg</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Statistics Cards -->
         <div class="row g-4 mb-5">
             <div class="col-md-3">
